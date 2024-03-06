@@ -132,7 +132,7 @@
                                 <input
                                     type="checkbox"
                                     class="form-check-input"
-                                    [(ngModel)]="isAccepted"
+                                    (change)="onChangeCheckbox($event)"
                                     id="agree"
                                 />
                                 <label class="form-check-label text-start" for="agree">

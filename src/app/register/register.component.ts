@@ -66,4 +66,7 @@ export class RegisterComponent {
             }
         }
     }
+    onChangeCheckbox(event: any) {
+        this.isAccepted = event.target.checked;
+    }
 }
