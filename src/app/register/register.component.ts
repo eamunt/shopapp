@@ -1,10 +1,42 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+    // declare variables tương ứng với các fields trong form.
+    phone: string;
+    password: string;
+    retypePassword: string;
+    fullName: string;
+    address: string;
+    isAccepted: boolean;
+    dateOfBirth: Date;
 
+    constructor() {
+        this.phone = '';
+        this.password = '';
+        this.retypePassword = '';
+        this.fullName = '';
+        this.address = '';
+        this.isAccepted = false;
+        this.dateOfBirth = new Date();
+        this.dateOfBirth.setFullYear(this.dateOfBirth.getFullYear() - 18);
+    }
+    onPhoneChange() {
+        console.log(`Phone typed: ${this.phone}`);
+    }
+    register() {
+        const message =
+            `phone: ${this.phone}` +
+            `password: ${this.password}` +
+            `retype password: ${this.retypePassword}` +
+            `full name: ${this.fullName}` +
+            `address: ${this.address}` +
+            `is accepted: ${this.isAccepted}` +
+            `dateOfBirth: ${this.dateOfBirth}`;
+        alert(message);
+    }
 }
