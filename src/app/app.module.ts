@@ -9,6 +9,8 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
     declarations: [
         HomeComponent,
@@ -20,7 +22,7 @@ import { FormsModule } from '@angular/forms';
         LoginComponent,
         RegisterComponent,
     ],
-    imports: [BrowserModule, FormsModule],
+    imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],
     bootstrap: [
         //HomeComponent,

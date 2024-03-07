@@ -86,6 +86,7 @@
                         <input
                             type="text"
                             class="form-control"
+                            name="fullName"
                             required
                             [(ngModel)]="fullName"
                             id="full-name"
@@ -121,6 +122,7 @@
                         <input
                             type="text"
                             class="form-control"
+                            name="address"
                             [(ngModel)]="address"
                             id="address"
                         />
@@ -134,6 +136,7 @@
                                     class="form-check-input"
                                     (change)="onChangeCheckbox($event)"
                                     id="agree"
+                                    name="isAccepted"
                                 />
                                 <label class="form-check-label text-start" for="agree">
                                     Tôi đồng ý với các điều khoản và điều kiện

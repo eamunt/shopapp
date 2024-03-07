@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register',
@@ -17,13 +19,13 @@ export class RegisterComponent {
     isAccepted: boolean;
     dateOfBirth: Date;
 
-    constructor() {
-        this.phone = '';
-        this.password = '';
-        this.retypePassword = '';
-        this.fullName = '';
-        this.address = '';
-        this.isAccepted = false;
+    constructor(private http: HttpClient, private router: Router) {
+        this.phone = '123456';
+        this.password = '112233';
+        this.retypePassword = '112233';
+        this.fullName = 'haotest';
+        this.address = 'angular';
+        this.isAccepted = true;
         this.dateOfBirth = new Date();
         this.dateOfBirth.setFullYear(this.dateOfBirth.getFullYear() - 18);
     }
@@ -39,7 +41,35 @@ export class RegisterComponent {
             `address: ${this.address}` +
             `is accepted: ${this.isAccepted}` +
             `dateOfBirth: ${this.dateOfBirth}`;
-        alert(message);
+        // alert(message);
+        const apiUrl = 'http://localhost:8088/api/v1/users/register';
+        const registerData = {
+            fullname: this.fullName,
+            phone_number: this.phone,
+            address: this.address,
+            password: this.password,
+            retype_password: this.retypePassword,
+            date_of_birth: this.dateOfBirth,
+            facebook_account_id: 0,
+            google_account_id: 0,
+            role_id: 1,
+        };
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        debugger;
+        this.http.post(apiUrl, registerData, { headers }).subscribe({
+            next: (response: any) => {
+                debugger;
+                // Xử lý kết quả trả về khi register success
+                this.router.navigate(['/login']);
+            },
+            complete: () => {
+                debugger;
+            },
+            error: (error: any) => {
+                // handle error if any
+                alert(`Cannot register, error: ${error.error}`);
+            },
+        });
     }
 
     // check password matched ?
