@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty, IsPhoneNumber, IsDate } from 'class-validator';
 export class RegisterDTO {
     @IsString()
-    full_name: string;
+    fullname: string;
 
     @IsPhoneNumber()
     phone_number: string;
@@ -30,7 +30,7 @@ export class RegisterDTO {
         this.phone_number = data.phone_number;
         this.password = data.password;
         this.retype_password = data.retype_password;
-        this.full_name = data.full_name;
+        this.fullname = data.full_name;
         this.address = data.address;
         this.date_of_birth = data.date_of_birth;
         this.facebook_account_id = data.facebook_account_id || 0;

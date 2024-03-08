@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
-import { RegisterDTO } from 'src/dtos/register.dto';
+import { RegisterDTO } from 'src/dtos/user/register.dto';
 
 @Component({
     selector: 'app-register',
@@ -34,7 +34,9 @@ export class RegisterComponent {
     onPhoneChange() {
         console.log(`Phone typed: ${this.phone}`);
     }
+
     register() {
+        debugger;
         const message =
             `phone: ${this.phone}` +
             `password: ${this.password}` +
@@ -45,7 +47,7 @@ export class RegisterComponent {
             `dateOfBirth: ${this.dateOfBirth}`;
         // alert(message);
         const registerDTO: RegisterDTO = {
-            full_name: this.fullName,
+            fullname: this.fullName,
             phone_number: this.phone,
             address: this.address,
             password: this.password,
