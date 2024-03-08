@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
+import { RegisterDTO } from 'src/dtos/register.dto';
 
 @Component({
     selector: 'app-register',
@@ -19,7 +21,7 @@ export class RegisterComponent {
     isAccepted: boolean;
     dateOfBirth: Date;
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private router: Router, private userService: UserService) {
         this.phone = '123456';
         this.password = '112233';
         this.retypePassword = '112233';
@@ -42,9 +44,8 @@ export class RegisterComponent {
             `is accepted: ${this.isAccepted}` +
             `dateOfBirth: ${this.dateOfBirth}`;
         // alert(message);
-        const apiUrl = 'http://localhost:8088/api/v1/users/register';
-        const registerData = {
-            fullname: this.fullName,
+        const registerDTO: RegisterDTO = {
+            full_name: this.fullName,
             phone_number: this.phone,
             address: this.address,
             password: this.password,
@@ -54,9 +55,8 @@ export class RegisterComponent {
             google_account_id: 0,
             role_id: 1,
         };
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        debugger;
-        this.http.post(apiUrl, registerData, { headers }).subscribe({
+
+        this.userService.register(registerDTO).subscribe({
             next: (response: any) => {
                 debugger;
                 // Xử lý kết quả trả về khi register success
