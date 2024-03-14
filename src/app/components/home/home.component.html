@@ -66,23 +66,29 @@
                         class="page-link"
                         href="#"
                         (click)="onPageChange(page)"
-                        *ngIf="(page !== visiblePages[0] && page !== visiblePages[4]) || page === 0"
+                        *ngIf="
+                            (page !== visiblePages[0] && page !== visiblePages[4]) ||
+                            page === 0 ||
+                            page === totalPages - 1
+                        "
                         >{{ page }}</a
                     >
                     <a
                         class="page-link"
                         href="#"
                         (click)="onPageChange(page)"
-                        *ngIf="page === visiblePages[4]"
+                        *ngIf="page === visiblePages[4] && page !== totalPages - 1"
                         >{{ page }} ...</a
                     >
                 </li>
             </ng-container>
-            <li class="page-item" *ngIf="currentPage < totalPages">
+            <li class="page-item" *ngIf="currentPage < totalPages - 1">
                 <a class="page-link" href="#" (click)="onPageChange(currentPage + 1)">Kế tiếp</a>
             </li>
-            <li class="page-item" *ngIf="currentPage < totalPages">
-                <a class="page-link" href="#" (click)="onPageChange(totalPages)"> Trang cuối </a>
+            <li class="page-item" *ngIf="currentPage < totalPages - 1">
+                <a class="page-link" href="#" (click)="onPageChange(totalPages - 1)">
+                    Trang cuối
+                </a>
             </li>
         </ul>
     </nav>
