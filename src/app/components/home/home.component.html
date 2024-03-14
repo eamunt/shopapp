@@ -6,13 +6,19 @@
     </div>
     <!-- 1 searchbox in left, 1 combobox in right -->
     <div class="searchbox">
-        <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm" />
-        <select class="form-control product-category">
-            <option selected disabled>Danh mục sản phẩm</option>
-            <option>Đồ điện tử</option>
-            <option>Hải sản</option>
-            <option>Bánh kẹo</option>
+        <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Tìm sản phẩm"
+            [(ngModel)]="keyword"
+        />
+        <select class="form-control product-category" [(ngModel)]="selectedCategoryId">
+            <option [value]="0">Tất cả</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+            </option>
         </select>
+        <button (click)="searchProducts()" class="btn btn-primary ml-2">Tìm kiếm</button>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6" *ngFor="let product of products">
@@ -42,21 +48,41 @@
     <nav aria-label="Page Navigation">
         <ul class="pagination">
             <li class="page-item" *ngIf="currentPage > 1">
-                <a class="page-link" href="#" (click)="onPageChange(1)">First</a>
+                <a class="page-link" href="#" (click)="onPageChange(1)">Trang đầu</a>
             </li>
             <li class="page-item" *ngIf="currentPage > 1">
-                <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)">Previous</a>
+                <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)">Quay lại</a>
             </li>
             <ng-container *ngFor="let page of visiblePages">
                 <li class="page-item" [ngClass]="{ active: page === currentPage }">
-                    <a class="page-link" href="#" (click)="onPageChange(page)">{{ page }}</a>
+                    <a
+                        class="page-link"
+                        href="#"
+                        (click)="onPageChange(page)"
+                        *ngIf="page === visiblePages[0] && page !== 0"
+                        >... {{ page }}</a
+                    >
+                    <a
+                        class="page-link"
+                        href="#"
+                        (click)="onPageChange(page)"
+                        *ngIf="(page !== visiblePages[0] && page !== visiblePages[4]) || page === 0"
+                        >{{ page }}</a
+                    >
+                    <a
+                        class="page-link"
+                        href="#"
+                        (click)="onPageChange(page)"
+                        *ngIf="page === visiblePages[4]"
+                        >{{ page }} ...</a
+                    >
                 </li>
             </ng-container>
             <li class="page-item" *ngIf="currentPage < totalPages">
-                <a class="page-link" href="#" (click)="onPageChange(currentPage + 1)">Next</a>
+                <a class="page-link" href="#" (click)="onPageChange(currentPage + 1)">Kế tiếp</a>
             </li>
             <li class="page-item" *ngIf="currentPage < totalPages">
-                <a class="page-link" href="#" (click)="onPageChange(totalPages)">Last</a>
+                <a class="page-link" href="#" (click)="onPageChange(totalPages)"> Trang cuối </a>
             </li>
         </ul>
     </nav>
