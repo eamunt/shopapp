@@ -10,6 +10,7 @@ import { ProductListResponse } from '../responses/product/productlist.response';
 })
 export class ProductService {
     private apiGetAllProducts = `${environment.apiBaseUrl}/products`;
+
     constructor(private http: HttpClient) {}
     getProducts(
         keyword: string,
@@ -24,5 +25,9 @@ export class ProductService {
             .set('page', page.toString())
             .set('limit', limit.toString());
         return this.http.get<ProductListResponse>(this.apiGetAllProducts, { params });
+    }
+    getDetailProduct(productId: number): Observable<any> {
+        debugger;
+        return this.http.get<any>(`${this.apiGetAllProducts}/${productId}`);
     }
 }

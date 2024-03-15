@@ -1,3 +1,5 @@
+import { ProductImage } from 'src/app/models/product.image';
+
 export interface ProductResponse {
     id: number;
     url: string;
@@ -5,4 +7,5 @@ export interface ProductResponse {
     thumbnail: string;
     description: string;
     price: number;
+    product_images: ProductImage[];
 }
