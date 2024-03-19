@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
     private TOKEN_KEY = 'access_token';
+    private USER_ID = 'user_id';
     constructor() {}
     //getter
     getToken(): string | null {
@@ -17,5 +18,14 @@ export class TokenService {
     //remove
     removeToken(): void {
         localStorage.removeItem(this.TOKEN_KEY);
+    }
+    setCurrentUserId(userId: string): void {
+        localStorage.setItem(this.USER_ID, userId);
+    }
+    getCurrentUserId(): string | null {
+        return localStorage.getItem(this.USER_ID);
+    }
+    removeCurrentUserId(): void {
+        localStorage.removeItem(this.USER_ID);
     }
 }

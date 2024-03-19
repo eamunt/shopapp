@@ -64,9 +64,11 @@ export class LoginComponent {
             next: (response: LoginResponse) => {
                 debugger;
                 const { token } = response;
+                const { user_id } = response;
                 if (this.rememberMe) {
                     this.tokenService.setToken(token);
                 }
+                this.tokenService.setCurrentUserId(user_id);
                 // Xử lý kết quả trả về khi register success
                 // this.router.navigate(['/login']);
             },
