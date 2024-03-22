@@ -19,4 +19,12 @@ export class TokenService {
     removeToken(): void {
         localStorage.removeItem(this.TOKEN_KEY);
     }
+
+    logout(): void {
+        // Xóa thông tin đăng nhập từ Local Storage
+        localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem('user');
+        // Chuyển hướng người dùng đến trang đăng nhập
+        window.location.href = '/login';
+    }
 }
