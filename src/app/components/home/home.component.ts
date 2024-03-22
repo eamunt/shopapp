@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/service/product.service';
 import { Category } from 'src/app/models/category';
 import { CategoryListReponse } from 'src/app/responses/category/categorylist.response';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -23,7 +24,11 @@ export class HomeComponent {
     selectedCategoryId: number = 0;
     categories: Category[] = [];
 
-    constructor(private productService: ProductService, private categoryService: CategoryService) {}
+    constructor(
+        private productService: ProductService,
+        private categoryService: CategoryService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
         this.getProducts(
@@ -110,5 +115,11 @@ export class HomeComponent {
             startPage = Math.max(endPage - maxVisiblePages + 1, 0);
         }
         return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index);
+    }
+
+    // khi bấm vào product tại trang Home
+    onProductClick(productId: number) {
+        debugger;
+        this.router.navigate(['/products', productId]);
     }
 }

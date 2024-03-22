@@ -12,6 +12,10 @@
 .product-category {
     width: 200px;
 }
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.35rem rgba(13, 110, 253, 0.25);
+}
 .search-input {
     width: 300px;
     background-color: rgb(19, 23, 42);
@@ -43,6 +47,10 @@
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
+}
+select {
+    cursor: pointer;
 }
 .product-image {
     width: 100%;

@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div class="container">
     <div class="intro-section">
-        <h1>This is home</h1>
-        <p>hello</p>
+        <h1>Welcome our products</h1>
+        <p></p>
     </div>
     <!-- 1 searchbox in left, 1 combobox in right -->
     <div class="searchbox">
@@ -18,11 +18,13 @@
                 {{ category.name }}
             </option>
         </select>
-        <button (click)="searchProducts()" class="btn btn-primary ml-2">Tìm kiếm</button>
+        <button (click)="searchProducts()" class="btn btn-primary" style="margin-left: 10px">
+            Tìm kiếm
+        </button>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6" *ngFor="let product of products">
-            <div class="product-item">
+            <div class="product-item" (click)="onProductClick(product.id)">
                 <img [src]="product.url" alt="Product Image" class="product-image" />
                 <h3 class="product-name">{{ product.name }}</h3>
                 <p class="product-description">{{ product.description }}</p>
@@ -48,7 +50,7 @@
     <nav aria-label="Page Navigation">
         <ul class="pagination">
             <li class="page-item" *ngIf="currentPage > 1">
-                <a class="page-link" href="#" (click)="onPageChange(1)">Trang đầu</a>
+                <a class="page-link" href="#" (click)="onPageChange(0)">Trang đầu</a>
             </li>
             <li class="page-item" *ngIf="currentPage > 1">
                 <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)">Quay lại</a>
