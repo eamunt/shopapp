@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/app/environments/environment';
 import { OrderService } from 'src/app/service/order.serivce';
 import { TokenService } from 'src/app/service/token.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
     selector: 'app-order',
@@ -20,7 +21,7 @@ export class OrderComponent implements OnInit {
     totalAmount: number = 0;
     orderDTO: OrderDTO = {
         // phải get từ LocalStorage
-        user_id: parseInt(this.tokenService.getCurrentUserId()!),
+        user_id: parseInt(this.userService.getUserResponseFromLocalStorage().id),
         fullname: '',
         email: '',
         phone_number: '',
@@ -36,6 +37,7 @@ export class OrderComponent implements OnInit {
         private cartService: CartService,
         private productService: ProductService,
         private orderService: OrderService,
+        private userService: UserService,
         private tokenService: TokenService,
         private fb: FormBuilder, // private orderService: OrderService,
     ) {

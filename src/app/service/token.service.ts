@@ -19,13 +19,4 @@ export class TokenService {
     removeToken(): void {
         localStorage.removeItem(this.TOKEN_KEY);
     }
-    setCurrentUserId(userId: string): void {
-        localStorage.setItem(this.USER_ID, userId);
-    }
-    getCurrentUserId(): string | null {
-        return localStorage.getItem(this.USER_ID);
-    }
-    removeCurrentUserId(): void {
-        localStorage.removeItem(this.USER_ID);
-    }
 }

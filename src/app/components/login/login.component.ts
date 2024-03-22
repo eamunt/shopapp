@@ -7,6 +7,7 @@ import { RoleService } from 'src/app/service/role.service';
 import { TokenService } from 'src/app/service/token.service';
 import { LoginDTO } from 'src/dtos/user/login.dto';
 import { UserService } from '../../service/user.service';
+import { UserResponse } from 'src/app/responses/user/user.response';
 
 @Component({
     selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
     roles: Role[];
     rememberMe: boolean;
     selectedRole: Role | undefined;
+    userResponse?: UserResponse;
 
     constructor(
         private router: Router,
@@ -64,13 +66,27 @@ export class LoginComponent {
             next: (response: LoginResponse) => {
                 debugger;
                 const { token } = response;
-                const { user_id } = response;
                 if (this.rememberMe) {
                     this.tokenService.setToken(token);
+                    this.userService.getUserDetails(token).subscribe({
+                        next: (response: any) => {
+                            debugger;
+                            this.userResponse = {
+                                ...response,
+                                date_of_birth: new Date(response.date_of_birth),
+                            };
+                            this.userService.saveUserResponseToLocalStorage(this.userResponse);
+                            this.router.navigate(['/']);
+                        },
+                        complete: () => {
+                            alert(`Đăng nhập thành công`);
+                            debugger;
+                        },
+                        error: (err: any) => {
+                            console.error(err);
+                        },
+                    });
                 }
-                this.tokenService.setCurrentUserId(user_id);
-                // Xử lý kết quả trả về khi register success
-                // this.router.navigate(['/login']);
             },
             complete: () => {
                 debugger;
