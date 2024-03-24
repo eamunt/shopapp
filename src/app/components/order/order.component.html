@@ -134,7 +134,7 @@
                 <!-- </form> -->
             </div>
             <div class="col-md-6">
-                <h2 class="product-order">Sản phẩm đã đặt hàng</h2>
+                <h2 class="product-order">Sản phẩm</h2>
                 <table>
                     <thead>
                         <tr>
@@ -145,6 +145,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <ng-container *ngIf="cartItems.length === 0">
+                            <tr>
+                                <td colspan="4">Chưa có sản phẩm được thêm vào giỏ hàng</td>
+                            </tr>
+                        </ng-container>
                         <ng-container *ngFor="let item of cartItems">
                             <tr>
                                 <td>

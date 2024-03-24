@@ -1,3 +1,19 @@
 .footer-description {
     color: rgb(173, 178, 203);
 }
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0; /* Khoảng cách nội dung footer và viền dưới */
+    text-align: center; /* Căn giữa nội dung */
+}
+
+.footer-description {
+    justify-content: space-between; /* Cách đều các cột */
+}
+
+.footer p {
+    margin: 0;
+}

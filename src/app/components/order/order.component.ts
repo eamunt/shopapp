@@ -8,6 +8,7 @@ import { environment } from 'src/app/environments/environment';
 import { OrderService } from 'src/app/service/order.serivce';
 import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-order',
@@ -21,7 +22,7 @@ export class OrderComponent implements OnInit {
     totalAmount: number = 0;
     orderDTO: OrderDTO = {
         // phải get từ LocalStorage
-        user_id: parseInt(this.userService.getUserResponseFromLocalStorage().id),
+        user_id: this.tokenService.getUserId(),
         fullname: '',
         email: '',
         phone_number: '',
@@ -39,6 +40,7 @@ export class OrderComponent implements OnInit {
         private orderService: OrderService,
         private userService: UserService,
         private tokenService: TokenService,
+        private router: Router,
         private fb: FormBuilder, // private orderService: OrderService,
     ) {
         this.orderForm = this.fb.group({
@@ -53,11 +55,16 @@ export class OrderComponent implements OnInit {
     }
     ngOnInit(): void {
         debugger;
+        this.orderDTO.user_id = this.tokenService.getUserId();
         // lấy danh sách product từ cart
+        // this.cartService.clearCart();
         const cart = this.cartService.getCart();
         const productIds = Array.from(cart.keys());
 
         debugger;
+        if (productIds.length === 0) {
+            return;
+        }
         this.productService.getProductsByIds(productIds).subscribe({
             next: (products) => {
                 debugger;
@@ -98,21 +105,26 @@ export class OrderComponent implements OnInit {
             this.orderDTO.cart_items = this.cartItems.map((cartItem) => ({
                 product_id: cartItem.product.id,
                 quantity: cartItem.quantity,
+                total_money: cartItem.product.price * cartItem.quantity,
             }));
+            this.orderDTO.total_money = this.totalAmount;
 
             // dữ liệu hợp lệ => gửi request
             this.orderService.placeOrder(this.orderDTO).subscribe({
                 next: (response) => {
                     debugger;
                     console.log('Đặt hàng thành công' + response);
+                    this.cartService.clearCart();
+                    this.router.navigate(['/orders/', response.id]);
                 },
                 complete: () => {
                     debugger;
+                    alert('Đặt hàng thành công');
                     this.calculateTotal();
                 },
                 error: (error: any) => {
                     debugger;
-                    console.error('Lỗi khi đặt hàng', error);
+                    alert(`Lỗi khi đặt hàng: ${error}`);
                 },
             });
         } else {

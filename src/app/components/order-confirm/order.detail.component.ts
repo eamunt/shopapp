@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
 import { OrderResponse } from 'src/app/responses/order/order.response';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-order-detail',
@@ -13,6 +14,7 @@ import { OrderResponse } from 'src/app/responses/order/order.response';
     styleUrls: ['./order.detail.component.scss'],
 })
 export class OrderDetailComponent implements OnInit {
+    orderId: number = 0;
     orderResponse: OrderResponse = {
         id: 0,
         user_id: 0,
@@ -30,18 +32,19 @@ export class OrderDetailComponent implements OnInit {
         payment_method: '',
         order_details: [],
     };
-    constructor(private orderService: OrderService) {}
+    constructor(private orderService: OrderService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.getOrderDetails();
     }
     getOrderDetails(): void {
         debugger;
-        const orderId = 13;
-        this.orderService.getOrderById(orderId).subscribe({
+        this.orderId = parseInt(this.route.snapshot.paramMap.get('id')!);
+        this.orderService.getOrderById(this.orderId).subscribe({
             next: (response: any) => {
                 this.orderResponse.id = response.id;
                 this.orderResponse.user_id = response.user_id;
+                this.orderResponse.phone_number = response.phone_number;
                 this.orderResponse.fullname = response.fullname;
                 this.orderResponse.email = response.email;
                 this.orderResponse.address = response.address;

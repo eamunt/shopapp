@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
     providedIn: 'root',
 })
 export class TokenService {
-    private TOKEN_KEY = 'access_token';
+    private readonly TOKEN_KEY = 'access_token';
+    private jwtHelperSerivce = new JwtHelperService();
     private USER_ID = 'user_id';
     constructor() {}
     //getter
@@ -18,6 +20,18 @@ export class TokenService {
     //remove
     removeToken(): void {
         localStorage.removeItem(this.TOKEN_KEY);
+    }
+    isTokenExpired(): boolean {
+        if (this.getToken() == null) {
+            return false;
+        }
+        return this.jwtHelperSerivce.isTokenExpired(this.getToken());
+    }
+
+    getUserId(): number {
+        debugger;
+        let userObject = this.jwtHelperSerivce.decodeToken(this.getToken() ?? '');
+        return 'userId' in userObject ? parseInt(userObject['userId']) : 0;
     }
 
     logout(): void {

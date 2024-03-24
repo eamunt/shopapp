@@ -15,6 +15,7 @@ export class OrderService {
 
     placeOrder(orderData: OrderDTO): Observable<any> {
         // Gửi yêu cầu đặt hàng
+        debugger;
         return this.http.post(this.apiCreateOrder, orderData);
     }
 

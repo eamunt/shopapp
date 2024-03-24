@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div class="container">
     <div class="confirmation-container">
-        <h1>Chi tiết đơn hàng</h1>
-        <p>Xem thông tin chi tiết đơn hàng</p>
+        <h1 class="text-center">Thông tin đơn hàng</h1>
+        <p class="text-center"></p>
     </div>
     <div *ngIf="orderResponse" class="row">
         <div class="col-md-6">
@@ -62,9 +62,9 @@
                     </ng-container>
                 </tbody>
             </table>
-            <div class="text-start mt-3">
+            <div class="text-start mt-4">
                 <h4 class="header-text text-end">
-                    Tổng giá (sau khi trừ khuyến mãi):
+                    Tổng giá:
                     {{ orderResponse.total_money | number : '1.2-2' }}
                 </h4>
             </div>
