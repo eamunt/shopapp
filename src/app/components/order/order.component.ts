@@ -92,6 +92,12 @@ export class OrderComponent implements OnInit {
         });
     }
 
+    confirmPlaceOrder() {
+        if (window.confirm('Bạn có chắc chắn muốn đặt hàng?')) {
+            this.placeOrder(); // Gọi hàm placeOrder nếu người dùng đồng ý
+        }
+    }
+
     placeOrder() {
         debugger;
         if (this.orderForm.valid) {
