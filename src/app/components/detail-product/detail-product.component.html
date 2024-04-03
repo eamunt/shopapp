@@ -71,9 +71,13 @@
                 <p>Giá: ${{ product?.price }}</p>
 
                 <div class="product-actions">
-                    <button class="btn btn-primary" (click)="addToCart()">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-primary" id="addToCartBtn" (click)="addToCart()">
+                        Thêm vào giỏ hàng
+                    </button>
+
                     <button class="btn btn-success" routerLink="/orders">Mua ngay</button>
                 </div>
+                <span style="display: none" id="addToCart"></span>
 
                 <div class="product-quantity">
                     <div class="border-wrapper">

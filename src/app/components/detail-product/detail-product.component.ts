@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
+declare var $: any;
 
 @Component({
     selector: 'app-detail-product',
@@ -60,6 +61,15 @@ export class DetailProductComponent implements OnInit {
         } else {
             console.error('Invalid ProductId', idParam);
         }
+
+        $('p').on('addToCartEvent', (event: any, myName: string) => {
+            $('#addToCart').stop().css('opacity', 1).text('Đã thêm vào giỏ hàng').fadeToggle(1800);
+        });
+
+        $('#addToCartBtn').click(function () {
+            debugger;
+            $('p').trigger('addToCartEvent');
+        });
     }
 
     showImage(index: number): void {

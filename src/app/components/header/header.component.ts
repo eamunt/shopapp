@@ -70,6 +70,12 @@ export class HeaderComponent implements OnInit {
                 e!.className += ' active';
             }
         }
+        if (HeaderComponent.currentPage.pathname === '/orders') {
+            let current = document.getElementsByClassName('active');
+
+            HeaderComponent.isClicked = 2;
+            this.fill_bg();
+        }
         debugger;
         if (this.userResponse) {
             debugger;
