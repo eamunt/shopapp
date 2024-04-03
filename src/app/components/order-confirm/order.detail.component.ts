@@ -32,6 +32,7 @@ export class OrderDetailComponent implements OnInit {
         payment_method: '',
         order_details: [],
     };
+    order_date_updated: any;
     constructor(private orderService: OrderService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
@@ -49,12 +50,16 @@ export class OrderDetailComponent implements OnInit {
                 this.orderResponse.email = response.email;
                 this.orderResponse.address = response.address;
                 this.orderResponse.note = response.note;
-                this.orderResponse.order_date = new Date(
-                    response.order_date[0],
-                    response.order_date[1] - 1,
-                    response.order_date[2],
-                );
+                var todate = new Date(response.order_date).getDate();
+                var tomonth = new Date(response.order_date).getMonth() + 1;
+                var toyear = new Date(response.order_date).getFullYear();
+                var h = new Date(response.order_date).getHours();
+                var m = new Date(response.order_date).getMinutes();
+                var s = new Date(response.order_date).getSeconds();
+                this.order_date_updated =
+                    todate + '/' + tomonth + '/' + toyear + ' ' + h + ':' + m + ':' + s;
                 debugger;
+
                 this.orderResponse.status = response.status;
                 this.orderResponse.total_money = response.total_money;
                 this.orderResponse.shipping_method = response.shipping_method;

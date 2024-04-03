@@ -9,6 +9,7 @@ import { OrderService } from 'src/app/service/order.serivce';
 import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-order',
@@ -92,12 +93,6 @@ export class OrderComponent implements OnInit {
         });
     }
 
-    confirmPlaceOrder() {
-        if (window.confirm('Bạn có chắc chắn muốn đặt hàng?')) {
-            this.placeOrder(); // Gọi hàm placeOrder nếu người dùng đồng ý
-        }
-    }
-
     placeOrder() {
         debugger;
         if (this.orderForm.valid) {
@@ -119,18 +114,15 @@ export class OrderComponent implements OnInit {
             this.orderService.placeOrder(this.orderDTO).subscribe({
                 next: (response) => {
                     debugger;
-                    console.log('Đặt hàng thành công' + response);
                     this.cartService.clearCart();
                     this.router.navigate(['/orders/', response.id]);
                 },
                 complete: () => {
                     debugger;
-                    alert('Đặt hàng thành công');
                     this.calculateTotal();
                 },
                 error: (error: any) => {
                     debugger;
-                    alert(`Lỗi khi đặt hàng: ${error}`);
                 },
             });
         } else {

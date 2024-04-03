@@ -65,4 +65,11 @@ export class UserService {
             console.log('Error get user to local storage', error);
         }
     }
+    removeUserFromLocalStorage(): void {
+        try {
+            localStorage.removeItem('user');
+        } catch (error) {
+            console.error('Error removing user from local storage', error);
+        }
+    }
 }

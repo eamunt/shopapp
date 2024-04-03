@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from './user.service';
 @Injectable({
     providedIn: 'root',
 })
@@ -7,7 +8,7 @@ export class TokenService {
     private readonly TOKEN_KEY = 'access_token';
     private jwtHelperSerivce = new JwtHelperService();
     private USER_ID = 'user_id';
-    constructor() {}
+    constructor(private userService: UserService) {}
     //getter
     getToken(): string | null {
         return localStorage.getItem(this.TOKEN_KEY);
@@ -36,8 +37,8 @@ export class TokenService {
 
     logout(): void {
         // Xóa thông tin đăng nhập từ Local Storage
-        localStorage.removeItem(this.TOKEN_KEY);
-        localStorage.removeItem('user');
+        this.removeToken();
+        this.userService.removeUserFromLocalStorage();
         // Chuyển hướng người dùng đến trang đăng nhập
         window.location.href = '/login';
     }

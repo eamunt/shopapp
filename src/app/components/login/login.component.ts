@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/models/role';
@@ -14,7 +14,7 @@ import { UserResponse } from 'src/app/responses/user/user.response';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     @ViewChild('loginForm') registerForm!: NgForm;
     // declare variables tương ứng với các fields trong form.
     phone: string;
@@ -53,7 +53,7 @@ export class LoginComponent {
         console.log(`Phone typed: ${this.phone}`);
     }
     login() {
-        const message = `phone: ${this.phone}` + `password: ${this.password}`;
+        // const message = `phone: ${this.phone}` + `password: ${this.password}`;
         debugger;
         // alert(message);
         const loginDTO: LoginDTO = {

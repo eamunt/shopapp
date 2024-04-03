@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="intro-section">
-        <h1>Đây là trang Order</h1>
-        <p>Sử dụng Bootstrap</p>
+        <h1>Giỏ hàng</h1>
+        <p></p>
     </div>
     <form [formGroup]="orderForm">
         <!-- Thêm form và gán formGroup -->
@@ -183,10 +183,60 @@
                     </div>
                 </div>
                 <div class="text-start mt-3">
-                    <button (click)="confirmPlaceOrder()" class="btn btn-gradient" type="button">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                    >
                         Đặt hàng
                     </button>
+                    <div
+                        class="modal fade"
+                        id="staticBackdrop"
+                        data-bs-backdrop="static"
+                        data-bs-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="staticBackdropLabel">
+                                        Xác nhận đặt hàng
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body text-dark">Bạn đồng ý đặt hàng ?</div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Đóng
+                                    </button>
+                                    <button
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        (click)="placeOrder()"
+                                        class="btn btn-primary"
+                                    >
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Modal Bootstrap -->
             </div>
         </div>
     </form>

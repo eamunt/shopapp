@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,14 @@ import { AppRoutingModule } from './app-routing.module';
         RegisterComponent,
         AppComponent,
     ],
-    imports: [ReactiveFormsModule, BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+    imports: [
+        ReactiveFormsModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        NgbModule,
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
