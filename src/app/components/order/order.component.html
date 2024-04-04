@@ -1,3 +1,27 @@
+<div class="toast-container position-fixed p-3 top-0 start-50 translate-middle-x">
+    <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="2000"
+    >
+        <div class="toast-header">
+            <strong class="me-auto">Lỗi</strong>
+            <!-- <small>11 mins ago</small> -->
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+        <div class="toast-body">Đã xảy ra lỗi, vui lòng kiểm tra lại!</div>
+    </div>
+</div>
+
 <app-header></app-header>
 
 <div class="container">
@@ -225,8 +249,8 @@
                                     <button
                                         type="button"
                                         data-bs-toggle="modal"
-                                        (click)="placeOrder()"
                                         class="btn btn-primary"
+                                        id="confirmOder"
                                         data-bs-target="#staticBackdrop"
                                     >
                                         Xác nhận
@@ -236,8 +260,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal Bootstrap -->
             </div>
         </div>
     </form>

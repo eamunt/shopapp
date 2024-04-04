@@ -9,8 +9,7 @@ import { OrderService } from 'src/app/service/order.serivce';
 import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
-
+declare var bootstrap: any;
 @Component({
     selector: 'app-order',
     templateUrl: './order.component.html',
@@ -47,7 +46,7 @@ export class OrderComponent implements OnInit {
         this.orderForm = this.fb.group({
             fullname: ['Hao nguyen', Validators.required],
             email: ['haonguyen@gmail.com', Validators.required],
-            phone_number: ['123456', [Validators.required, Validators.minLength(6)]],
+            phone_number: ['', [Validators.required, Validators.minLength(6)]],
             address: ['camau viet mam', [Validators.required, Validators.minLength(6)]],
             note: ['nhe tay'],
             shipping_method: ['express'],
@@ -91,6 +90,22 @@ export class OrderComponent implements OnInit {
                 console.error('error fectching details', error);
             },
         });
+
+        // hiển thị toast thông báo lỗi
+        const toastTrigger = document.getElementById('confirmOder');
+        const toastLiveExample = document.getElementById('liveToast');
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', () => {
+                // kiểm tra valid data
+                if (this.orderForm.valid) {
+                    this.placeOrder();
+                } else {
+                    // hiện toast
+                    const toast = new bootstrap.Toast(toastLiveExample);
+                    toast.show();
+                }
+            });
+        }
     }
 
     placeOrder() {
@@ -125,8 +140,6 @@ export class OrderComponent implements OnInit {
                     debugger;
                 },
             });
-        } else {
-            alert('Dữ liệu không hợp lệ. Vui lòng kiểm tra lại');
         }
     }
 
