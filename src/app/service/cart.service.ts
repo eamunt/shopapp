@@ -48,4 +48,13 @@ export class CartService {
         this.cart.clear(); // xóa all data in the cart
         this.saveCartToLocalStorage();
     }
+
+    getQuality(productId: number): number | undefined {
+        return this.cart.get(productId);
+    }
+
+    removeItem(productId: number): void {
+        this.cart.delete(productId);
+        this.saveCartToLocalStorage();
+    }
 }

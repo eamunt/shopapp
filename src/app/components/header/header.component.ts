@@ -67,7 +67,9 @@ export class HeaderComponent implements OnInit {
                 current[0].className = current[0].className.replace(' active', '');
                 debugger;
                 let e = document.getElementById('loginTag');
-                e!.className += ' active';
+                if (e) {
+                    e!.className += ' active';
+                }
             }
         }
         if (HeaderComponent.currentPage.pathname === '/orders') {

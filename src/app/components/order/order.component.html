@@ -176,7 +176,12 @@
                             </tr>
                         </ng-container>
                         <ng-container *ngFor="let item of cartItems">
-                            <tr>
+                            <tr
+                                *ngIf="
+                                    liveQuantity.get(item.product.id) &&
+                                    liveQuantity.get(item.product.id)! > 0
+                                "
+                            >
                                 <td>
                                     <div class="product-info">
                                         <img
@@ -187,9 +192,31 @@
                                         <span class="product-name">{{ item.product.name }}</span>
                                     </div>
                                 </td>
-                                <td>{{ item.quantity }}</td>
+                                <td>
+                                    <div class="product-quantity">
+                                        <div class="border-wrapper">
+                                            <button (click)="decreaseQuantity(item.product.id)">
+                                                -
+                                            </button>
+
+                                            <input
+                                                type="text"
+                                                disabled
+                                                [value]="liveQuantity.get(item.product.id)"
+                                            />
+                                            <button (click)="increaseQuantity(item.product.id)">
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>{{ item.product.price | number : '1.2-2' }}</td>
-                                <td>{{ item.product.price * item.quantity | number : '1.2-2' }}</td>
+                                <td>
+                                    {{
+                                        item.product.price * liveQuantity.get(item.product.id)!
+                                            | number : '1.2-2'
+                                    }}
+                                </td>
                             </tr>
                         </ng-container>
                     </tbody>

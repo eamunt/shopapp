@@ -20,6 +20,8 @@ export class OrderComponent implements OnInit {
     cartItems: { product: Product; quantity: number }[] = [];
     couponCode: string = '';
     totalAmount: number = 0;
+
+    liveQuantity: Map<number, number> = new Map();
     orderDTO: OrderDTO = {
         // phải get từ LocalStorage
         user_id: this.tokenService.getUserId(),
@@ -75,6 +77,7 @@ export class OrderComponent implements OnInit {
                     if (product) {
                         product.thumbnail = `${environment.apiBaseUrl}/products/images/${product.thumbnail}`;
                     }
+                    this.liveQuantity.set(productId, this.cartService.getQuality(productId)!);
                     return {
                         product: product!,
                         quantity: cart.get(productId)!,
@@ -145,12 +148,49 @@ export class OrderComponent implements OnInit {
 
     // calulate total amount
     calculateTotal(): void {
+        debugger;
         this.totalAmount = this.cartItems.reduce(
-            (total, item) => total + item.product.price * item.quantity,
+            (currentTotal, item) => currentTotal + item.product.price * item.quantity,
             0,
         );
     }
 
     // apply coupon
     applyCoupon(): void {}
+
+    // tăng quantity
+    increaseQuantity(idProduct: number): void {
+        this.cartService.addToCart(idProduct, 1);
+        this.liveQuantity.set(idProduct, this.cartService.getQuality(idProduct)!);
+        this.updateCartItems();
+    }
+
+    // giảm quantity
+    decreaseQuantity(idProduct: number): void {
+        const currentQuality = this.cartService.getQuality(idProduct);
+        if (currentQuality! > 1) {
+            this.cartService.addToCart(idProduct, -1);
+            this.liveQuantity.set(idProduct, this.cartService.getQuality(idProduct)!);
+        }
+        if (currentQuality! === 1) {
+            debugger;
+            this.cartService.addToCart(idProduct, -1);
+            this.cartService.removeItem(idProduct);
+            this.liveQuantity.set(idProduct, currentQuality - 1);
+        }
+        this.updateCartItems();
+    }
+
+    // Thêm phương thức để loại bỏ các mục có quality hoặc liveQuantity bằng 0 khỏi danh sách cartItems
+    updateCartItems() {
+        debugger;
+
+        // update cartItems
+        // filter: return elements of an array with conditions in call back funtion
+        this.cartItems = this.cartItems.filter((item) => {
+            item.quantity = this.liveQuantity.get(item.product.id)!;
+            return item.quantity && item.quantity > 0;
+        });
+        this.calculateTotal();
+    }
 }
