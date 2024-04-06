@@ -1,3 +1,4 @@
+@import 'src/app/styles/shared-styles.scss';
 .intro-section {
     color: white;
     padding: 20px;
@@ -35,7 +36,7 @@
     border-radius: 10px;
 }
 .thumbnail-item.active {
-    border: 2px solid rgb(170, 236, 140);
+    border: 2px solid $border-color;
     border-radius: 10px;
 }
 .product-details {
@@ -47,6 +48,7 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 20px;
+    align-items: center;
 }
 .product-actions button {
     margin-right: 10px;

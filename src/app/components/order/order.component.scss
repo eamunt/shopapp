@@ -1,3 +1,4 @@
+@import 'src/app/styles/shared-styles.scss';
 .container {
     color: white;
 }
@@ -7,7 +8,7 @@
     padding: 20px;
 }
 .product-header {
-    color: rgb(233, 66, 176);
+    color: $order-color;
 }
 .form-control {
     background-color: rgb(19, 23, 42);
@@ -22,7 +23,7 @@
     color: white;
 }
 .product-order {
-    color: rgb(105, 244, 181);
+    color: $order-color;
 }
 
 table {
@@ -55,7 +56,7 @@ td {
 }
 
 .btn-gradient {
-    background: linear-gradient(to right, rgb(255, 64, 180), rgb(126, 43, 237));
+    background: linear-gradient(to right, $order-color, rgb(126, 43, 237));
     color: white;
     border-radius: 30px;
     width: 200px;
@@ -92,4 +93,7 @@ td {
     text-align: center;
     width: 40px;
     margin: 0 10px;
+}
+.button-style {
+    background-color: $button-color;
 }

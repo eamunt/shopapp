@@ -1,3 +1,4 @@
+@import 'src/app/styles/shared-styles.scss';
 .intro-section {
     text-align: center;
     color: white;
@@ -85,5 +86,13 @@ select {
     cursor: pointer;
 }
 .page-item {
+    cursor: pointer;
+}
+
+.button-style {
+    background-color: $button-color;
+    border: none;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
 }

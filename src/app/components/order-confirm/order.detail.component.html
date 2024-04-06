@@ -13,8 +13,8 @@
                     </div>
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <p class="lead fw-normal mb-0" style="color: #a8729a">Receipt</p>
-                            <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+                            <p class="lead fw-normal mb-0" style="color: #a8729a">Đơn hàng</p>
+                            <!-- <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p> -->
                         </div>
                         <div class="card shadow-0 border mb-4">
                             <div class="card-body">
@@ -94,14 +94,14 @@
                         <div class="d-flex justify-content-between pt-2">
                             <p class="fw-bold mb-0">Order Details</p>
                             <p class="text-muted mb-0">
-                                <span class="fw-bold me-4">Total</span> ${{
+                                <span class="fw-bold me-4">Tổng</span> ${{
                                     orderResponse.total_money | number : '1.2-2'
                                 }}
                             </p>
                         </div>
 
                         <div class="d-flex justify-content-between pt-2">
-                            <p class="text-muted mb-0">Số hóa đơn : 788152</p>
+                            <p class="text-muted mb-0">Số hóa đơn : {{ orderResponse.id }}</p>
                             <p class="text-muted mb-0">
                                 <span class="fw-bold me-4">Giảm giá</span> $0.00
                             </p>
