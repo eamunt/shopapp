@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
+import { UserResponse } from 'src/app/responses/user/user.response';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
+import { UserService } from 'src/app/service/user.service';
 declare var $: any;
-
+declare var bootstrap: any;
 @Component({
     selector: 'app-detail-product',
     templateUrl: './detail-product.component.html',
@@ -17,10 +19,12 @@ export class DetailProductComponent implements OnInit {
     productId: number = 0;
     currentImageIndex: number = 0;
     quantity: number = 1;
+    userResponse?: UserResponse | null;
     constructor(
         private productService: ProductService, //private categoryService CategoryService, //private router: Router, //private activateRoute ActivatedRoute
         private cartService: CartService,
         private activatedRoute: ActivatedRoute,
+        private userService: UserService,
     ) {}
 
     ngOnInit(): void {
@@ -62,14 +66,35 @@ export class DetailProductComponent implements OnInit {
             console.error('Invalid ProductId', idParam);
         }
 
-        $('p').on('addToCartEvent', (event: any, myName: string) => {
-            $('#addToCart').stop().css('opacity', 1).text('Đã thêm vào giỏ hàng').fadeToggle(1800);
-        });
+        // hiển thị toast thông báo lỗi khi addToCard mà chưa login
+        const toastTrigger = document.getElementById('addToCartBtn');
+        const toastLiveExample = document.getElementById('liveToast');
+        this.userResponse = this.userService.getUserResponseFromLocalStorage();
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', () => {
+                // kiểm tra login
+                if (this.userResponse) {
+                    // hiển thị thông báo bên cạnh rằng đã thêm vào giỏ hàng
+                    $('p').on('addToCartEvent', (event: any, myName: string) => {
+                        $('#addToCart')
+                            .stop()
+                            .css('opacity', 1)
+                            .text('Đã thêm vào giỏ hàng')
+                            .fadeToggle(1800);
+                    });
 
-        $('#addToCartBtn').click(function () {
-            debugger;
-            $('p').trigger('addToCartEvent');
-        });
+                    $('#addToCartBtn').click(function () {
+                        debugger;
+                        $('p').trigger('addToCartEvent');
+                    });
+                    this.addToCart();
+                } else {
+                    // hiện toast
+                    const toast = new bootstrap.Toast(toastLiveExample);
+                    toast.show();
+                }
+            });
+        }
     }
 
     showImage(index: number): void {

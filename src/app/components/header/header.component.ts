@@ -4,6 +4,7 @@ import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/service/user.service';
 import { TokenService } from 'src/app/service/token.service';
 import { HomeComponent } from '../home/home.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -22,7 +23,11 @@ export class HeaderComponent implements OnInit {
         this.isPopoverOpen = !this.isPopoverOpen;
     }
 
-    constructor(private userService: UserService, private tokenService: TokenService) {}
+    constructor(
+        private userService: UserService,
+        private tokenService: TokenService,
+        private router: Router,
+    ) {}
     handleItemClick(index: number): void {
         //alert(`Clicked on "${index}"`);
         // if (index === 2) {
@@ -33,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
         switch (index) {
             case 0:
-                // Xử lý khi click vào "Tài khoản của tôi"
+                this.router.navigate(['/user-profile']);
                 break;
             case 1:
                 // Xử lý khi click vào "Đơn mua"
@@ -61,6 +66,11 @@ export class HeaderComponent implements OnInit {
         if (!this.userResponse) {
             if (HeaderComponent.currentPage.pathname === '/login') {
                 HeaderComponent.activeNavItem = -1;
+            }
+        }
+        if (this.userResponse) {
+            if (HeaderComponent.currentPage.pathname === '/orders') {
+                HeaderComponent.activeNavItem = 2;
             }
         }
     }

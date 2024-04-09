@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
         private tokenService: TokenService,
         private roleService: RoleService,
     ) {
-        this.phone = '123456';
-        this.password = '112233';
+        this.phone = '1234567';
+        this.password = '12345678';
         this.roles = [];
         this.rememberMe = false;
     }
