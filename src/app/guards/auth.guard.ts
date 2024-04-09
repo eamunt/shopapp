@@ -16,10 +16,11 @@ export class AuthGuard {
     constructor(private tokenService: TokenService, private router: Router) {}
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        debugger;
         // check expired
         const isTokenExpired = this.tokenService.isTokenExpired();
         // check exsisting user
-        const isUserIdValid = this.tokenService.getUserId() > 0;
+        const isUserIdValid = this.tokenService.getUserId();
         debugger;
         if (!isTokenExpired && isUserIdValid) {
             return true;
