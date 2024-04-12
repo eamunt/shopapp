@@ -35,6 +35,9 @@ export class EditUserProfileComponent implements OnInit {
     isInfoVisible: boolean = false;
     isPwVisible: boolean = false;
 
+    errorMesssage: string = '';
+    isToastShown: boolean = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -68,13 +71,15 @@ export class EditUserProfileComponent implements OnInit {
                         date_of_birth: new Date(response.date_of_birth),
                     };
 
+                    // điền sẵn value cũ
                     this.userProfileForm.patchValue({
-                        full_name: this.userResponse?.full_name ?? '',
-                        address: this.userResponse?.address ?? '',
+                        //     full_name: this.userResponse?.full_name ?? '',
+                        //     address: this.userResponse?.address ?? '',
                         date_of_birth: this.userResponse?.date_of_birth
                             .toISOString()
                             .substring(0, 10),
                     });
+
                     // this.userService.saveUserResponseToLocalStorage(this.userResponse);
                 },
                 complete: () => {
@@ -86,28 +91,6 @@ export class EditUserProfileComponent implements OnInit {
                 },
             });
         }
-
-        // hiển thị toast thông báo lỗi
-        // const toastTrigger = document.getElementById('saveConfirm');
-        // const toastLiveExample = document.getElementById('liveToast');
-        // console.log(toastTrigger);
-        // debugger;
-        // if (toastTrigger) {
-        //     debugger;
-        //     console.log(toastTrigger);
-        //     toastTrigger.addEventListener('click', () => {
-        //         // kiểm tra valid data
-        //         debugger;
-        //         if (this.userProfileForm.valid) {
-        //             this.save();
-        //         } else {
-        //             debugger;
-        //             // hiện toast
-        //             const toast = new bootstrap.Toast(toastLiveExample);
-        //             toast.show();
-        //         }
-        //     });
-        // }
     }
 
     // check retype password
@@ -117,10 +100,8 @@ export class EditUserProfileComponent implements OnInit {
         debugger;
         if (password?.value === retype_password?.value) {
             debugger;
-            this.changed = true;
             return null;
         } else {
-            this.changed = true;
             return { notSame: true };
         }
     };
@@ -141,6 +122,21 @@ export class EditUserProfileComponent implements OnInit {
         }
     }
 
+    showNotificationAndNavigate() {
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+        // Thêm callback function để điều hướng sau khi toast được hiển thị
+        toastLiveExample!.addEventListener('hidden.bs.toast', () => {
+            this.router.navigate(['/user-profile']);
+        });
+    }
+    showNotification() {
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    }
+
     // save changed
     save(): void {
         debugger;
@@ -159,24 +155,52 @@ export class EditUserProfileComponent implements OnInit {
                     next: (response: any) => {
                         this.userService.removeUserFromLocalStorage;
                         this.tokenSerive.removeToken;
-                        this.router.navigate(['/user-profile']);
+                        // this.router.navigate(['/user-profile']);
+                        // this.errorMesssage = 'Đổi thông tin thành công!';
+                        // this.showNotification();
+                    },
+                    complete: () => {
+                        console.log('ok');
+                        this.errorMesssage = 'Đổi thông tin thành công!';
+                        this.showNotificationAndNavigate();
                     },
                     error: (error: any) => {
                         debugger;
-                        console.log(error.error.message);
+                        console.log(`${error.error}`);
+                        this.errorMesssage = error.error;
+                        this.showNotification();
                     },
                 });
         } else {
-            const toastLiveExample = document.getElementById('liveToast');
-            const toast = new bootstrap.Toast(toastLiveExample);
-            toast.show();
+            this.errorMesssage = 'Thông tin không hợp lệ! Vui lòng kiểm tra lại!';
+            this.showNotification();
         }
+    }
+
+    resetPwValues() {
+        this.userProfileForm.patchValue({
+            password: '',
+            retype_password: '',
+        });
+    }
+    resetInfoValues() {
+        this.userProfileForm.patchValue({
+            full_name: '',
+            address: '',
+            date_of_birth: this.userResponse?.date_of_birth.toISOString().substring(0, 10),
+        });
     }
 
     changeInfoFunc(event: any) {
         this.isInfoVisible = event.target.checked;
+        if (!this.isInfoVisible) {
+            this.resetInfoValues();
+        }
     }
     changePwFunc(event: any) {
         this.isPwVisible = event.target.checked;
+        if (!this.isPwVisible) {
+            this.resetPwValues();
+        }
     }
 }

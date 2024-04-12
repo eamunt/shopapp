@@ -6,6 +6,7 @@ import { RegisterDTO } from 'src/dtos/user/register.dto';
 import { LoginDTO } from 'src/dtos/user/login.dto';
 import { HttpUtilService } from './http.util.service';
 import { UserResponse } from '../responses/user/user.response';
+import { UpdateUserDTO } from 'src/dtos/user/update.user.dto';
 @Injectable({
     providedIn: 'root',
 })
@@ -13,6 +14,7 @@ export class UserService {
     private apiRegister = `${environment.apiBaseUrl}/users/register`;
     private apiLogin = `${environment.apiBaseUrl}/users/login`;
     private apiDetails = `${environment.apiBaseUrl}/users/details`;
+    private updateDetails = `${environment.apiBaseUrl}/users/details`;
     private apiConfig = {
         headers: this.httpUtilService.createHeaders(),
     };
@@ -71,5 +73,17 @@ export class UserService {
         } catch (error) {
             console.error('Error removing user from local storage', error);
         }
+    }
+
+    // update profile
+    updateUserDetails(userId: number, token: string, updateUserDTO: UpdateUserDTO) {
+        debugger;
+        return this.http.put(`${this.updateDetails}/${userId}`, updateUserDTO, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept-Language': 'vi',
+                Authorization: `Bearer ${token}`,
+            }),
+        });
     }
 }
