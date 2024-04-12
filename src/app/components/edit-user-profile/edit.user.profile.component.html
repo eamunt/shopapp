@@ -1,0 +1,251 @@
+<div class="toast-container position-fixed p-3 top-0 start-50 translate-middle-x">
+    <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="2000"
+    >
+        <div class="toast-header">
+            <strong class="me-auto">Lỗi</strong>
+            <!-- <small>11 mins ago</small> -->
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+        <div class="toast-body">Đã xảy ra lỗi, vui lòng kiểm tra lại!</div>
+    </div>
+</div>
+<app-header></app-header>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <form [formGroup]="userProfileForm">
+        <div class="row">
+            <div class="col-md-4 border-right" *ngIf="userResponse">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img
+                        class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                    /><span class="font-weight-bold">{{ userResponse.full_name }}</span
+                    ><span class="text-black-50">Điện thoại: {{ userResponse.phone_number }}</span
+                    ><span> </span>
+                </div>
+            </div>
+            <div class="col-md-6 border-right">
+                <div class="p-3 py-5" *ngIf="userResponse">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Chỉnh sửa thông tin</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="old_password" class="labels">Mật khẩu cũ*</label
+                        ><input
+                            type="password"
+                            class="form-control"
+                            formControlName="old_password"
+                            id="old_password"
+                            placeholder="Mật khẩu cũ"
+                        />
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="divider py-1 bg-dark mb-3 mt-3"></div>
+
+                        <div class="col-md-12">
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="changeInfoCheckBox"
+                                    (change)="changeInfoFunc($event)"
+                                />
+                                <label class="form-check-label" for="changeInfoCheckBox"
+                                    >Đổi thông tin</label
+                                >
+                            </div>
+                        </div>
+                        <div id="changeInfo" [class.d-none]="!isInfoVisible">
+                            <div class="col-md-12">
+                                <label for="full_name" class="labels">Tên</label
+                                ><input
+                                    type="text"
+                                    formControlName="full_name"
+                                    placeholder="{{ userResponse.full_name }}"
+                                    class="form-control"
+                                    id="full_name"
+                                    [class.is-invalid]="
+                                        userProfileForm.get('full_name')!.invalid &&
+                                        userProfileForm.get('full_name')!.touched
+                                    "
+                                />
+                                <div class="invalid-feedback">Tên phải tối thiểu 6 ký tự</div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="address" class="labels">Địa chỉ</label
+                                ><input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="address"
+                                    id="address"
+                                    placeholder="{{ userResponse.address }}"
+                                />
+                            </div>
+                            <div class="col-md-12">
+                                <label for="date_of_birth" class="labels">Ngày sinh</label
+                                ><input
+                                    type="date"
+                                    class="form-control"
+                                    formControlName="date_of_birth"
+                                    id="date_of_birth"
+                                    [class.is-invalid]="
+                                        userProfileForm.get('date_of_birth')!.touched &&
+                                        userProfileForm.errors !== null &&
+                                        userProfileForm.errors!['ageInvalid']
+                                    "
+                                />
+                                <div
+                                    class="invalid-feedback"
+                                    *ngIf="
+                                        userProfileForm.get('date_of_birth')!.touched &&
+                                        userProfileForm.errors !== null
+                                    "
+                                >
+                                    <div *ngIf="userProfileForm.errors!['ageInvalid']">
+                                        Ngày sinh không hợp lệ
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="divider py-1 bg-dark mb-3 mt-3"></div>
+
+                        <div class="col-md-12">
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="changePwCheckBox"
+                                    (change)="changePwFunc($event)"
+                                />
+                                <label class="form-check-label" for="changePwCheckBox"
+                                    >Đổi mật khẩu</label
+                                >
+                            </div>
+                        </div>
+                        <div id="changePw" [class.d-none]="!isPwVisible">
+                            <div class="col-md-12">
+                                <label for="password" class="labels">Mật khẩu mới</label
+                                ><input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Mật khẩu mới"
+                                    formControlName="password"
+                                    id="password"
+                                    [class.is-invalid]="
+                                        userProfileForm.get('password')!.invalid &&
+                                        userProfileForm.get('password')!.touched
+                                    "
+                                />
+                                <div class="invalid-feedback">Mật khẩu phải tối thiểu 6 ký tự</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="retype_password" class="labels">Nhập lại mật khẩu</label
+                                ><input
+                                    type="password"
+                                    class="form-control"
+                                    formControlName="retype_password"
+                                    placeholder="Nhập lại mật khẩu"
+                                    id="retype_password"
+                                    [class.is-invalid]="
+                                        userProfileForm.get('retype_password')!.touched &&
+                                        userProfileForm.errors !== null &&
+                                        userProfileForm.errors!['notSame']
+                                    "
+                                />
+                                <div
+                                    class="invalid-feedback"
+                                    *ngIf="
+                                        userProfileForm.get('retype_password')!.touched &&
+                                        userProfileForm.errors !== null
+                                    "
+                                >
+                                    <div *ngIf="userProfileForm.errors!['notSame']">
+                                        Mật khẩu không khớp
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button me-3" type="button">
+                            Hủy bỏ
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                        >
+                            Lưu
+                        </button>
+                        <div
+                            class="modal fade"
+                            id="staticBackdrop"
+                            data-bs-backdrop="static"
+                            data-bs-keyboard="false"
+                            tabindex="-1"
+                            aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="staticBackdropLabel">
+                                            Xác nhận thay đổi
+                                        </h5>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        Bạn đồng ý thay đổi thông tin ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Đóng
+                                        </button>
+                                        <button
+                                            type="button"
+                                            data-bs-toggle="modal"
+                                            class="btn btn-primary"
+                                            (click)="save()"
+                                            data-bs-target="#staticBackdrop"
+                                        >
+                                            Xác nhận
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>

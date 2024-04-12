@@ -16,6 +16,7 @@ import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { EditUserProfileComponent } from './components/edit-user-profile/edit.user.profile.component';
 @NgModule({
     declarations: [
         HomeComponent,
@@ -28,6 +29,7 @@ import { UserProfileComponent } from './components/user-profile/user.profile.com
         RegisterComponent,
         AppComponent,
         UserProfileComponent,
+        EditUserProfileComponent,
     ],
     imports: [
         ReactiveFormsModule,

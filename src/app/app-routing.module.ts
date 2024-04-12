@@ -8,6 +8,7 @@ import { OrderDetailComponent } from './components/order-confirm/order.detail.co
 import { NgModule } from '@angular/core';
 import { AuthGuardFn } from './guards/auth.guard';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { EditUserProfileComponent } from './components/edit-user-profile/edit.user.profile.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'products/:id', component: DetailProductComponent },
     { path: 'orders', component: OrderComponent, canActivate: [AuthGuardFn] },
     { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardFn] },
+    { path: 'user-profile/edit', component: EditUserProfileComponent, canActivate: [AuthGuardFn] },
     { path: 'orders/:id', component: OrderDetailComponent },
 ];
 
