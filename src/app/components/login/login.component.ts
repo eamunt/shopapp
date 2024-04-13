@@ -8,7 +8,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { LoginDTO } from 'src/dtos/user/login.dto';
 import { UserService } from '../../service/user.service';
 import { UserResponse } from 'src/app/responses/user/user.response';
-
+declare var bootstrap: any;
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit {
     rememberMe: boolean;
     selectedRole: Role | undefined;
     userResponse?: UserResponse;
+
+    errorMesssage: string = '';
+    isToastShown: boolean = false;
 
     constructor(
         private router: Router,
@@ -76,14 +79,19 @@ export class LoginComponent implements OnInit {
                                 date_of_birth: new Date(response.date_of_birth),
                             };
                             this.userService.saveUserResponseToLocalStorage(this.userResponse);
-                            this.router.navigate(['/']);
+                            if (this.userResponse?.role_id.id === 2) {
+                                this.errorMesssage = 'Đăng nhập thành công vào Admin';
+                            } else if (this.userResponse?.role_id.id === 1) {
+                                this.errorMesssage = 'Đăng nhập thành công';
+                            }
                         },
                         complete: () => {
-                            alert(`Đăng nhập thành công`);
+                            this.showNotificationAndNavigate();
                             debugger;
                         },
                         error: (err: any) => {
-                            console.error(err);
+                            this.errorMesssage = err.error;
+                            this.showNotification();
                         },
                     });
                 }
@@ -94,8 +102,30 @@ export class LoginComponent implements OnInit {
             error: (error: any) => {
                 debugger;
                 // handle error if any
-                alert(`${error.error.message}`);
+
+                this.errorMesssage = error.error.message;
+                this.showNotification();
             },
+        });
+    }
+
+    showNotification() {
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    }
+
+    showNotificationAndNavigate() {
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+        // Thêm callback function để điều hướng sau khi toast được hiển thị
+        toastLiveExample!.addEventListener('hidden.bs.toast', () => {
+            if (this.userResponse?.role_id.id === 2) {
+                this.router.navigate(['/admin']);
+            } else if (this.userResponse?.role_id.id === 1) {
+                this.router.navigate(['/']);
+            }
         });
     }
 }
