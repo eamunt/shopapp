@@ -1,1 +1,102 @@
-<h1>hello</h1>
+<div class="container-fluid">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid">
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand">Trang quản lý</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" aria-current="page" href="#"
+                            >Trang sản phẩm</a
+                        >
+                    </li>
+                </ul>
+                <div ngbDropdown class="d-inline-block">
+                    <button
+                        type="button"
+                        class="btn btn-outline-light border-0 mb-1"
+                        id="dropdownBasic1"
+                        ngbDropdownToggle
+                    >
+                        <div class="fa-sharp fa-regular fa-user text-dark">Admin</div>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button class="popover-item" ngbDropdownItem (click)="handleItemClick(0)">
+                            Chỉnh sửa tài khoản
+                        </button>
+
+                        <button class="popover-item" ngbDropdownItem (click)="handleItemClick(2)">
+                            Đăng xuất
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row mt-4">
+        <!-- Sidebar -->
+        <div class="col-md-1">
+            <!-- Menu items -->
+            <nav id="sidebar" class="bg-light sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                [ngClass]="{ active: getActivateNavItem() === 0 }"
+                                (click)="showAdminComponent('orders', 0)"
+                            >
+                                <i class="fas fa-shopping-cart icon"></i>
+                                Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                [ngClass]="{ active: getActivateNavItem() === 1 }"
+                                (click)="showAdminComponent('categories', 1)"
+                            >
+                                <i class="fab fa-canadian-maple-leaf icon"></i>Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                [ngClass]="{ active: getActivateNavItem() === 2 }"
+                                (click)="showAdminComponent('products', 2)"
+                            >
+                                <i class="fab fa-codepen icon"></i>Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                [ngClass]="{ active: getActivateNavItem() === 3 }"
+                                (click)="showAdminComponent('products', 3)"
+                            >
+                                <i class="fab fa-codepen icon"></i>Users
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- Content -->
+        <div class="col-md-11">
+            <ng-container [ngSwitch]="adminComponent">
+                <app-order-admin *ngSwitchCase="'orders'"></app-order-admin>
+            </ng-container>
+        </div>
+    </div>
+</div>

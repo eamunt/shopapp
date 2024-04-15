@@ -11,11 +11,15 @@ import { UserProfileComponent } from './components/user-profile/user.profile.com
 import { EditUserProfileComponent } from './components/edit-user-profile/edit.user.profile.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuardFn } from './guards/admin.guard';
+import { OrderAdminComponent } from './components/admin/order/order.admin.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
+
     { path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] },
+    { path: 'admin/orders', component: OrderAdminComponent, canActivate: [AdminGuardFn] },
+
     { path: 'register', component: RegisterComponent },
     { path: 'products/:id', component: DetailProductComponent },
     { path: 'orders', component: OrderComponent, canActivate: [AuthGuardFn] },

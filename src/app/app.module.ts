@@ -17,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { EditUserProfileComponent } from './components/edit-user-profile/edit.user.profile.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { OrderAdminComponent } from './components/admin/order/order.admin.component';
 @NgModule({
     declarations: [
         HomeComponent,
@@ -30,6 +32,9 @@ import { EditUserProfileComponent } from './components/edit-user-profile/edit.us
         AppComponent,
         UserProfileComponent,
         EditUserProfileComponent,
+        //admin
+        AdminComponent,
+        OrderAdminComponent,
     ],
     imports: [
         ReactiveFormsModule,

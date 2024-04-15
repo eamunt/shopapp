@@ -1,0 +1,7 @@
+.table thead th,
+.table tbody td {
+    width: calc(100% / 10); /* Số cột trong table */
+}
+.table-container {
+    overflow-x: auto;
+}
