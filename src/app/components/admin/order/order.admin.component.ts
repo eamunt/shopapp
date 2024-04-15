@@ -61,9 +61,7 @@ export class OrderAdminComponent implements OnInit {
         this.orderService.getAllOrders(keyword, page, limit).subscribe({
             next: (orderList: OrderListResponse) => {
                 debugger;
-                orderList.orders.forEach((order) => {
-                    console.log(order.created_at.getTime);
-                });
+
                 this.orders = orderList.orders;
 
                 this.totalPages = orderList.totalPages;
