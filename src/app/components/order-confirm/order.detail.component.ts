@@ -31,6 +31,8 @@ export class OrderDetailComponent implements OnInit {
         shipping_date: new Date(),
         payment_method: '',
         order_details: [],
+        created_at: new Date(),
+        updated_at: new Date(),
     };
     order_date_updated: any;
     constructor(private orderService: OrderService, private route: ActivatedRoute) {}
