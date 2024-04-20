@@ -1,3 +1,26 @@
+<div class="toast-container position-fixed p-3 top-0 start-50 translate-middle-x">
+    <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="2000"
+    >
+        <div class="toast-header">
+            <strong class="me-auto">Thông báo</strong>
+            <!-- <small>11 mins ago</small> -->
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+        <div class="toast-body">{{ errorMesssage }}</div>
+    </div>
+</div>
 <div class="container-fluid">
     <h1>Orders Admin Page</h1>
     <div class="table-container">
@@ -26,11 +49,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let order of orders">
-                    <td>
-                        <button (click)="viewDetails(order)" class="btn btn-primary">
-                            View Details
-                        </button>
-                    </td>
                     <td>{{ order.id }}</td>
                     <td>{{ order.user_id }}</td>
                     <td>{{ order.fullname }}</td>
@@ -49,7 +67,64 @@
                     <td>{{ order.created_at | date : 'dd MMM, yyyy  hh:mm:ss' }}</td>
                     <td>{{ order.updated_at | date : 'dd MMM, yyyy  hh:mm:ss' }}</td>
                     <td>
-                        <button class="btn btn-danger">Delete</button>
+                        <button (click)="viewDetails(order)" class="btn btn-primary">
+                            View Details
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                        >
+                            Delete
+                        </button>
+                        <div
+                            class="modal fade"
+                            id="staticBackdrop"
+                            data-bs-backdrop="static"
+                            data-bs-keyboard="false"
+                            tabindex="-1"
+                            aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="staticBackdropLabel">
+                                            Xác nhận
+                                        </h5>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        Bạn đồng ý xóa dữ liệu này ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Đóng
+                                        </button>
+                                        <button
+                                            type="button"
+                                            data-bs-toggle="modal"
+                                            class="btn btn-primary"
+                                            (click)="deleteOrder(order.id)"
+                                            data-bs-target="#staticBackdrop"
+                                        >
+                                            Xác nhận
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>

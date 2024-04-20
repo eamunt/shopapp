@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OrderDTO } from 'src/dtos/order/order.dto';
 import { Observable } from 'rxjs';
 import { HttpUtilService } from './http.util.service';
@@ -32,5 +32,20 @@ export class OrderService {
             .set('page', page.toString())
             .set('limit', limit.toString());
         return this.http.get<OrderListResponse>(this.apiGetOrder, { params });
+    }
+
+    updateOrder(orderId: number, orderDTO: OrderDTO) {
+        return this.http.put(`${this.apiCreateOrder}/${orderId}`, orderDTO);
+    }
+
+    deleteOrder(orderId: number): Observable<any> {
+        return this.http.delete(`${this.apiCreateOrder}/${orderId}`, {
+            responseType: 'text',
+
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept-Language': 'vi',
+            }),
+        });
     }
 }

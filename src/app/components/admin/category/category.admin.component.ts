@@ -13,78 +13,8 @@ import { UserService } from 'src/app/service/user.service';
     styleUrls: ['./category.admin.component.scss'],
 })
 export class CategoryAdminComponent implements OnInit {
-    orders: Order[] = [];
-    currentPage: number = 0;
-    itemsPerPage: number = 10;
-    pages: number[] = [];
-    totalPages: number = 0;
-    visiblePages: number[] = [];
-    keyword: string = '';
-    userReponse?: UserResponse | null;
-
-    constructor(
-        private router: Router,
-        private tokenService: TokenService,
-        private userSerice: UserService,
-        private orderService: OrderService,
-    ) {}
-    ngOnInit(): void {
-        this.getOrders(this.keyword, this.currentPage, this.itemsPerPage);
-    }
-
-    handleItemClick(index: number): void {
-        //alert(`Clicked on "${index}"`);
-        // if (index === 2) {
-        //     this.tokenService.logout();
-        //     // this.userResponse = this.userService.getUserResponseFromLocalStorage();
-        // }
-        // this.isPopoverOpen = false; // Close the popover after clicking an item
-
-        switch (index) {
-            case 0:
-                this.router.navigate(['/user-profile']);
-                break;
-            case 1:
-                // Xử lý khi click vào "Đơn mua"
-                break;
-            case 2:
-                // Xử lý khi click vào "Đăng xuất"
-                debugger;
-                this.tokenService.logout();
-                break;
-            default:
-                break;
-        }
-    }
-
-    getOrders(keyword: string, page: number, limit: number) {
-        this.orderService.getAllOrders(keyword, page, limit).subscribe({
-            next: (orderList: OrderListResponse) => {
-                debugger;
-
-                this.orders = orderList.orders;
-
-                this.totalPages = orderList.totalPages;
-                this.visiblePages = this.generateVisiblePageArray(
-                    this.currentPage,
-                    this.totalPages,
-                );
-            },
-            complete: () => {
-                debugger;
-            },
-            error: (err: any) => {
-                debugger;
-                console.error('Error fetching products: ' + err.message);
-            },
-        });
-    }
-
-    onPageChange(page: number) {
-        debugger;
-        this.currentPage = page;
-        this.getOrders(this.keyword, this.currentPage, this.itemsPerPage);
-    }
+    constructor(private router: Router, private tokenService: TokenService) {}
+    ngOnInit(): void {}
 
     generateVisiblePageArray(currentPage: number, totalPages: number) {
         debugger;

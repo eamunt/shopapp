@@ -30,6 +30,7 @@ export class OrderComponent implements OnInit {
         phone_number: '',
         address: '',
         note: '',
+        status: '',
         total_money: 0,
         payment_method: 'cod',
         shipping_method: 'express',

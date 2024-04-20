@@ -7,7 +7,7 @@ import { UserResponse } from 'src/app/responses/user/user.response';
 import { OrderService } from 'src/app/service/order.serivce';
 import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
-
+declare var bootstrap: any;
 @Component({
     selector: 'app-order-admin',
     templateUrl: './order.admin.component.html',
@@ -22,6 +22,8 @@ export class OrderAdminComponent implements OnInit {
     visiblePages: number[] = [];
     keyword: string = '';
     userReponse?: UserResponse | null;
+
+    errorMesssage: string = '';
 
     constructor(
         private router: Router,
@@ -103,5 +105,32 @@ export class OrderAdminComponent implements OnInit {
 
     viewDetails(order: Order) {
         this.router.navigate(['/admin/orders', order.id]);
+    }
+
+    deleteOrder(orderId: number) {
+        {
+            this.orderService.deleteOrder(orderId).subscribe({
+                next: (response: any) => {
+                    this.errorMesssage = response;
+                    this.showNotificationAndNavigate();
+                },
+                complete: () => {
+                    debugger;
+                },
+                error: (err: any) => {
+                    console.log(err);
+                },
+            });
+        }
+    }
+
+    showNotificationAndNavigate() {
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+        // Thêm callback function để điều hướng sau khi toast được hiển thị
+        toastLiveExample!.addEventListener('hidden.bs.toast', () => {
+            location.reload();
+        });
     }
 }

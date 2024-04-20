@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
     ) {}
     ngOnInit(): void {
         this.userReponse = this.userSerice.getUserResponseFromLocalStorage();
+        this.router.navigate(['admin/orders']);
     }
 
     handleItemClick(index: number): void {
