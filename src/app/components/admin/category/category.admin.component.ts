@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order';
-import { OrderResponse } from 'src/app/responses/order/order.response';
 import { OrderListResponse } from 'src/app/responses/order/orderlist.response';
 import { UserResponse } from 'src/app/responses/user/user.response';
 import { OrderService } from 'src/app/service/order.serivce';
@@ -9,11 +8,11 @@ import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
-    selector: 'app-order-admin',
-    templateUrl: './order.admin.component.html',
-    styleUrls: ['./order.admin.component.scss'],
+    selector: 'app-category-admin',
+    templateUrl: './category.admin.component.html',
+    styleUrls: ['./category.admin.component.scss'],
 })
-export class OrderAdminComponent implements OnInit {
+export class CategoryAdminComponent implements OnInit {
     orders: Order[] = [];
     currentPage: number = 0;
     itemsPerPage: number = 10;
@@ -99,9 +98,5 @@ export class OrderAdminComponent implements OnInit {
             startPage = Math.max(endPage - maxVisiblePages + 1, 0);
         }
         return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index);
-    }
-
-    viewDetails(order: Order) {
-        this.router.navigate(['/admin/orders', order.id]);
     }
 }

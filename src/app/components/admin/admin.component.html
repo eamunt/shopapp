@@ -94,9 +94,11 @@
         </div>
         <!-- Content -->
         <div class="col-md-11">
-            <ng-container [ngSwitch]="adminComponent">
+            <!-- <ng-container [ngSwitch]="adminComponent">
                 <app-order-admin *ngSwitchCase="'orders'"></app-order-admin>
-            </ng-container>
+                <app-product-admin *ngSwitchCase="'products'"></app-product-admin>
+            </ng-container> -->
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

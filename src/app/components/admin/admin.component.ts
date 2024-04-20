@@ -52,6 +52,19 @@ export class AdminComponent implements OnInit {
     showAdminComponent(componentName: string, index: number) {
         this.adminComponent = componentName;
         AdminComponent.activeNavItem = index;
+        switch (index) {
+            case 0:
+                this.router.navigate(['admin/orders']);
+                break;
+            case 1:
+                this.router.navigate(['admin/categories']);
+                break;
+            case 2:
+                this.router.navigate(['admin/products']);
+                break;
+            default:
+                break;
+        }
     }
 
     getActivateNavItem(): number {

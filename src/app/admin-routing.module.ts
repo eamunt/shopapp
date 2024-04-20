@@ -12,23 +12,37 @@ import { EditUserProfileComponent } from './components/edit-user-profile/edit.us
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuardFn } from './guards/admin.guard';
 import { OrderAdminComponent } from './components/admin/order/order.admin.component';
+import { ProductAdminComponent } from './components/admin/product/product.admin.component';
+import { CategoryAdminComponent } from './components/admin/category/category.admin.component';
+import { DetailOrderAdminComponent } from './components/admin/detail-order/detail.order.admin.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-
-    { path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] },
-
-    { path: 'register', component: RegisterComponent },
-    { path: 'products/:id', component: DetailProductComponent },
-    { path: 'orders', component: OrderComponent, canActivate: [AuthGuardFn] },
-    { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardFn] },
-    { path: 'user-profile/edit', component: EditUserProfileComponent, canActivate: [AuthGuardFn] },
-    { path: 'orders/:id', component: OrderDetailComponent },
+    {
+        path: 'admin',
+        component: AdminComponent,
+        children: [
+            {
+                path: 'orders',
+                component: OrderAdminComponent,
+            },
+            {
+                path: 'orders/:id',
+                component: DetailOrderAdminComponent,
+            },
+            {
+                path: 'products',
+                component: ProductAdminComponent,
+            },
+            {
+                path: 'categories',
+                component: CategoryAdminComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AdminRoutingModule {}

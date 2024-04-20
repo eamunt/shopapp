@@ -17,8 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { EditUserProfileComponent } from './components/edit-user-profile/edit.user.profile.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { OrderAdminComponent } from './components/admin/order/order.admin.component';
+import { AdminModule } from './admin.module';
 @NgModule({
     declarations: [
         HomeComponent,
@@ -32,9 +31,6 @@ import { OrderAdminComponent } from './components/admin/order/order.admin.compon
         AppComponent,
         UserProfileComponent,
         EditUserProfileComponent,
-        //admin
-        AdminComponent,
-        OrderAdminComponent,
     ],
     imports: [
         ReactiveFormsModule,
@@ -43,6 +39,7 @@ import { OrderAdminComponent } from './components/admin/order/order.admin.compon
         HttpClientModule,
         AppRoutingModule,
         NgbModule,
+        AdminModule,
     ],
     providers: [
         {
