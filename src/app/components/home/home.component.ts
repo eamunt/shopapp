@@ -1,5 +1,5 @@
-import { CategoryService } from './../../service/category.service';
-import { ProductListResponse } from './../../responses/product/productlist.response';
+import { CategoryService } from '../../service/category.service';
+import { ProductListResponse } from '../../responses/product/productlist.response';
 import { Component } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';

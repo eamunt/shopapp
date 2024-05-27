@@ -1,4 +1,4 @@
-import { OrderDTO } from './../../../../dtos/order/order.dto';
+import { OrderDTO } from '../../../../dtos/order/order.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';

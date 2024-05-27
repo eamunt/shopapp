@@ -3,7 +3,6 @@ import { UserResponse } from 'src/app/responses/user/user.response';
 import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/service/user.service';
 import { TokenService } from 'src/app/service/token.service';
-import { HomeComponent } from '../home/home.component';
 import { Router } from '@angular/router';
 
 @Component({
