@@ -72,8 +72,13 @@ export class HomeComponent {
         this.productService.getProducts(keyword, selectedCategoryId, page, limit).subscribe({
             next: (productList: ProductListResponse) => {
                 debugger;
+
                 productList.products.forEach((product: Product) => {
-                    product.url = `${environment.apiBaseUrl}/products/images/${product.thumbnail}`;
+                    if (product.thumbnail) {
+                        product.url = `${environment.apiBaseUrl}/products/images/${product.thumbnail}`;
+                    } else {
+                        product.url = `${environment.apiBaseUrl}/products/images/s`;
+                    }
                 });
                 this.products = productList.products;
                 this.totalPages = productList.totalPages;
