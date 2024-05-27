@@ -22,6 +22,8 @@ export class OrderComponent implements OnInit {
     totalAmount: number = 0;
 
     liveQuantity: Map<number, number> = new Map();
+
+    cart: Map<number, number> = new Map();
     orderDTO: OrderDTO = {
         // phải get từ LocalStorage
         user_id: this.tokenService.getUserId(),
@@ -61,8 +63,8 @@ export class OrderComponent implements OnInit {
         this.orderDTO.user_id = this.tokenService.getUserId();
         // lấy danh sách product từ cart
         // this.cartService.clearCart();
-        const cart = this.cartService.getCart();
-        const productIds = Array.from(cart.keys());
+        this.cart = this.cartService.getCart();
+        const productIds = Array.from(this.cart.keys());
 
         debugger;
         if (productIds.length === 0) {
@@ -81,7 +83,7 @@ export class OrderComponent implements OnInit {
                     this.liveQuantity.set(productId, this.cartService.getQuality(productId)!);
                     return {
                         product: product!,
-                        quantity: cart.get(productId)!,
+                        quantity: this.cart.get(productId)!,
                     };
                 });
             },
@@ -193,5 +195,16 @@ export class OrderComponent implements OnInit {
             return item.quantity && item.quantity > 0;
         });
         this.calculateTotal();
+    }
+
+    confirmDelete(index: number): void {
+        const currentQuality = this.cartService.getQuality(index);
+        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+            // Xóa sản phẩm khỏi danh sách cartItems
+            this.cartService.addToCart(index, -1);
+            this.cartService.removeItem(index);
+            this.liveQuantity.set(index, 0);
+        }
+        this.updateCartItems();
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
@@ -20,11 +20,13 @@ export class DetailProductComponent implements OnInit {
     currentImageIndex: number = 0;
     quantity: number = 1;
     userResponse?: UserResponse | null;
+    isPressedAddToCart: boolean = false;
     constructor(
         private productService: ProductService, //private categoryService CategoryService, //private router: Router, //private activateRoute ActivatedRoute
         private cartService: CartService,
         private activatedRoute: ActivatedRoute,
         private userService: UserService,
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -74,6 +76,7 @@ export class DetailProductComponent implements OnInit {
             toastTrigger.addEventListener('click', () => {
                 // kiểm tra login
                 if (this.userResponse) {
+                    debugger;
                     // hiển thị thông báo bên cạnh rằng đã thêm vào giỏ hàng
                     $('p').on('addToCartEvent', (event: any, myName: string) => {
                         $('#addToCart')
@@ -83,10 +86,8 @@ export class DetailProductComponent implements OnInit {
                             .fadeToggle(1800);
                     });
 
-                    $('#addToCartBtn').click(function () {
-                        debugger;
-                        $('p').trigger('addToCartEvent');
-                    });
+                    $('p').trigger('addToCartEvent');
+
                     this.addToCart();
                 } else {
                     // hiện toast
@@ -128,6 +129,7 @@ export class DetailProductComponent implements OnInit {
     // cart
     addToCart(): void {
         debugger;
+        this.isPressedAddToCart = true;
         if (this.product) {
             this.cartService.addToCart(this.product.id, this.quantity);
         } else {
@@ -146,6 +148,9 @@ export class DetailProductComponent implements OnInit {
     }
 
     buyNow(): void {
-        // comming
+        if (this.isPressedAddToCart == false) {
+            this.addToCart();
+        }
+        this.router.navigate(['/orders']);
     }
 }

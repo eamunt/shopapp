@@ -94,11 +94,9 @@
                 <p>Giá: ${{ product?.price }}</p>
 
                 <div class="product-actions">
-                    <button class="btn btn-primary" id="addToCartBtn" (click)="addToCart()">
-                        Thêm vào giỏ hàng
-                    </button>
+                    <button class="btn btn-primary" id="addToCartBtn">Thêm vào giỏ hàng</button>
 
-                    <button class="btn btn-success" routerLink="/orders" *ngIf="userResponse">
+                    <button class="btn btn-success" (click)="buyNow()" *ngIf="userResponse">
                         Mua ngay
                     </button>
                     <span style="display: none" id="addToCart"></span>

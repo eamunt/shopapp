@@ -217,6 +217,14 @@
                                             | number : '1.2-2'
                                     }}
                                 </td>
+                                <td>
+                                    <button
+                                        class="btn btn-danger"
+                                        (click)="confirmDelete(item.product.id)"
+                                    >
+                                        Xóa
+                                    </button>
+                                </td>
                             </tr>
                         </ng-container>
                     </tbody>
