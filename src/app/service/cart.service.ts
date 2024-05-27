@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { ProductService } from './product.service';
+import { Injectable, Inject } from '@angular/core';
+import { Product } from '../models/product';
+import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Injectable({
     providedIn: 'root',
@@ -8,18 +9,26 @@ export class CartService {
     // key: product id
     // value: is quantity
     private cart: Map<number, number> = new Map();
-    constructor(private productService: ProductService) {
-        // lấy dữ liệu giở hàng từ LocalStorage khi khởi tạo service
-        const storedCart = localStorage.getItem('cart');
+    localStorage?: Storage;
+    constructor(@Inject(DOCUMENT) private document: Document) {
+        this.localStorage = document.defaultView?.localStorage;
+        // Lấy dữ liệu giỏ hàng từ localStorage khi khởi tạo service
+        this.refreshCart();
+    }
+
+    public refreshCart() {
+        const storedCart = this.localStorage?.getItem(this.getCartKey());
         if (storedCart) {
             this.cart = new Map(JSON.parse(storedCart));
-            /*
-            {
-                "2": 5,
-                "3": 10
-            }
-            */
+        } else {
+            this.cart = new Map<number, number>();
         }
+    }
+
+    getCartKey(): string {
+        const userResponseJSON = this.localStorage?.getItem('user');
+        const userResponse = JSON.parse(userResponseJSON!);
+        return `cart:${userResponse?.id ?? ''}`;
     }
     addToCart(productId: number, quantity: number = 1): void {
         debugger;
@@ -41,7 +50,10 @@ export class CartService {
     // save to local storage
     private saveCartToLocalStorage() {
         debugger;
-        localStorage.setItem('cart', JSON.stringify(Array.from(this.cart.entries())));
+        this.localStorage!.setItem(
+            this.getCartKey(),
+            JSON.stringify(Array.from(this.cart.entries())),
+        );
     }
 
     clearCart(): void {
