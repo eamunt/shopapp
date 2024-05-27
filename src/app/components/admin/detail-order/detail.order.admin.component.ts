@@ -1,7 +1,7 @@
-import { OrderDTO } from '../../../../dtos/order/order.dto';
+import { OrderDTO } from '../../../dtos/order/order.dto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/environments/environment';
 import { OrderDetail } from 'src/app/models/model.detail';
 import { OrderResponse } from 'src/app/responses/order/order.response';
 import { OrderService } from 'src/app/service/order.serivce';

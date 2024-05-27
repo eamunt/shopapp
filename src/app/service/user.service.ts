@@ -1,12 +1,12 @@
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterDTO } from 'src/dtos/user/register.dto';
-import { LoginDTO } from 'src/dtos/user/login.dto';
+import { RegisterDTO } from 'src/app/dtos/user/register.dto';
+import { LoginDTO } from 'src/app/dtos/user/login.dto';
 import { HttpUtilService } from './http.util.service';
 import { UserResponse } from '../responses/user/user.response';
-import { UpdateUserDTO } from 'src/dtos/user/update.user.dto';
+import { UpdateUserDTO } from 'src/app/dtos/user/update.user.dto';
 @Injectable({
     providedIn: 'root',
 })

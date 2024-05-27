@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { OrderDTO } from 'src/dtos/order/order.dto';
+import { OrderDTO } from 'src/app/dtos/order/order.dto';
 import { Observable } from 'rxjs';
 import { HttpUtilService } from './http.util.service';
 import { OrderResponse } from '../responses/order/order.response';

@@ -1,7 +1,7 @@
 import { OrderDetail } from '../../models/model.detail';
 import { OrderService } from 'src/app/service/order.serivce';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';

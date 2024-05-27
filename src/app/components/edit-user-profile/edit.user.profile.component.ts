@@ -1,7 +1,7 @@
 import { OrderDetail } from '../../models/model.detail';
 import { OrderService } from 'src/app/service/order.serivce';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
@@ -18,7 +18,7 @@ import {
 import { UserService } from 'src/app/service/user.service';
 import { TokenService } from 'src/app/service/token.service';
 import { UserResponse } from 'src/app/responses/user/user.response';
-import { UpdateUserDTO } from 'src/dtos/user/update.user.dto';
+import { UpdateUserDTO } from 'src/app/dtos/user/update.user.dto';
 declare var bootstrap: any;
 @Component({
     selector: 'edit-user-profile',

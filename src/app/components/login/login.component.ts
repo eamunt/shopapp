@@ -5,7 +5,7 @@ import { Role } from 'src/app/models/role';
 import { LoginResponse } from 'src/app/responses/user/login.response';
 import { RoleService } from 'src/app/service/role.service';
 import { TokenService } from 'src/app/service/token.service';
-import { LoginDTO } from 'src/dtos/user/login.dto';
+import { LoginDTO } from 'src/app/dtos/user/login.dto';
 import { UserService } from '../../service/user.service';
 import { UserResponse } from 'src/app/responses/user/user.response';
 declare var bootstrap: any;

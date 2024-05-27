@@ -1,7 +1,7 @@
 import { CategoryService } from '../../service/category.service';
 import { ProductListResponse } from '../../responses/product/productlist.response';
 import { Component } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/service/product.service';
 import { Category } from 'src/app/models/category';
